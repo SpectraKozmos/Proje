@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Şikayet Sayfası</title>
+</head>
+<body>
+    <h1>Şikayet Gönder</h1>
+    <form id="complaintForm">
+        <input type="text" id="name" placeholder="Adınız" required>
+        <input type="email" id="email" placeholder="E-posta" required>
+        <textarea id="complaint" placeholder="Şikayetiniz" required></textarea>
+        <button type="submit">Gönder</button>
+    </form>
+
+    <h2>Gönderilen Şikayetler</h2>
+    <div id="complaintsList"></div>
+
+    <script>
+        document.getElementById('complaintForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const complaint = document.getElementById('complaint').value;
+
+            const response = await fetch('/api/complaints', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ name, email, complaint }),
+            });
+
+            if (response.ok) {
+                alert('Şikayet başarıyla gönderildi.');
+                document.getElementById('complaintForm').reset();
+                loadComplaints();
+            } else {
+                alert('Şikayet gönderilirken bir hata oluştu.');
+            }
+        });
+
+        async function loadComplaints() {
+            const response = await fetch('/api/complaints');
+            const complaints = await response.json();
+            const complaintsList = document.getElementById('complaintsList');
+            complaintsList.innerHTML = '';
+            complaints.forEach(c => {
+                const complaintItem = document.createElement('div');
+                complaintItem.textContent = `${c.name} (${c.email}): ${c.complaint}`;
+                complaintsList.appendChild(complaintItem);
+            });
+        }
+
+        loadComplaints();
+    </script>
+</body>
+</html>
