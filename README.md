@@ -4,14 +4,14 @@ Bu proje, modern bir kütüphane yönetim sistemi olarak üç kişilik bir ekip 
 
 ## Ekip ve Görev Dağılımı
 
-### 1. Database & Migration Specialist - Semih Yavuz
+### 1. Database & Migration Specialist - `Semih Yavuz`
 - Veritabanı migrasyonları
 - Kategori yönetimi (MongoDB)
 - Kitap-Kategori ilişkileri
 - Performans optimizasyonları
 - Session yönetimi
 
-### 2. Frontend & UI Specialist - Muhammet Taşkıran
+### 2. Frontend & UI Specialist - `Muhammet Taşkıran`
 - Kullanıcı arayüzü tasarımı
 - Bootstrap ve jQuery implementasyonu
 - Responsive tasarım
@@ -19,7 +19,7 @@ Bu proje, modern bir kütüphane yönetim sistemi olarak üç kişilik bir ekip 
 - AJAX entegrasyonları
 - Güvenlik önlemleri
 
-### 3. Backend & Integration Developer - Muhammed Vahit Elik
+### 3. Backend & Integration Developer - `Muhammed Vahit Elik`
 - MongoDB entegrasyonu
 - CodeIgniter framework kurulumu ve yapılandırması
 - Form validasyonları
