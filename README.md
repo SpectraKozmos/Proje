@@ -4,21 +4,21 @@ Bu proje, modern bir kütüphane yönetim sistemi olarak üç kişilik bir ekip 
 
 ## Ekip ve Görev Dağılımı
 
-### 1. Frontend & UI Geliştirici - Semih Yavuz
+### 1. Frontend & UI Geliştirici - `Semih Yavuz`
 - Kullanıcı arayüzü tasarımı
 - Bootstrap ve jQuery implementasyonu
 - Responsive tasarım
 - Form validasyonları
 - AJAX entegrasyonları
 
-### 2. Backend Geliştirici - Muhammet Taşkıran
+### 2. Backend Geliştirici - `Muhammet Taşkıran`
 - CodeIgniter framework kurulumu ve yapılandırması
 - MySQL veritabanı tasarımı ve implementasyonu
 - Temel CRUD operasyonları
 - Session yönetimi
 - Güvenlik önlemleri
 
-### 3. Database & Integration Specialist - Muhammed Vahit Elik
+### 3. Database & Integration Specialist - `Muhammed Vahit Elik`
 - MongoDB entegrasyonu
 - Veritabanı migrasyonları
 - Kategori yönetimi (MongoDB)
