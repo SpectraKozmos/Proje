@@ -55,7 +55,7 @@
 							<td><?=$book->writer?></td>
 							<td><?=$book->stock?></td>
 							<td class="text-center">
-								<a href="#edit" onclick="edit('<?=$book->book_code?>')" class="btn btn-primary btn-sm rounded-0" data-toggle="modal"><i class="fa fa-pencil"></i></a>
+								<a href="#edit" onclick="edit_book('<?=$book->book_code?>')" class="btn btn-primary btn-sm rounded-0" data-toggle="modal"><i class="fa fa-pencil"></i></a>
 								<a href="<?=base_url('index.php/kitap/delete/'.$book->book_code)?>" onclick="return confirm('Bu kitabı silmek istediğinizden emin misiniz?')" class="btn btn-danger btn-sm rounded-0"><i class="fa fa-trash"></i></a>
 							</td>
 						</tr>
@@ -98,10 +98,9 @@
 							<div class="col-sm-3 offset-1"><label>Kategori</label></div>
 							<div class="col-sm-7">
 								<select name="category" required="form-control" class="form-control">
+									<option value="">Kategori Seçin</option>
 									<?php foreach ($category as $kat): ?>
-										<option value="<?=$kat->category_code?>">
-											<?=$kat->category_name ?>
-										</option> 
+										<option value="<?= $kat->category_code ?>">#CA<?= $kat->category_code ?> - <?= $kat->category_name ?></option>
 									<?php endforeach ?>
 								</select>
 							</div>
@@ -173,10 +172,10 @@
 							<div class="col-sm-3 offset-1"><label>Kategori</label></div>
 							<div class="col-sm-7">
 								<select name="category" id="category" class="form-control">
+									<option value="">Kategori Seçin</option>
 									<?php foreach ($category as $kat): ?>
-										<option value="<?=$kat->category_code?>">
-											<?=$kat->category_name ?>
-										</option> <?php endforeach ?>
+										<option value="<?= $kat->category_code ?>">#CA<?= $kat->category_code ?> - <?= $kat->category_name ?></option>
+									<?php endforeach ?>
 								</select>
 							</div>
 						</div>
@@ -217,27 +216,33 @@
 </div>
 
 
-<script type="text/javascript">
-	$(document).ready(function(){
-			$('#example').DataTable();
-		}
-	);
-	function edit(a) {
-		$.ajax({
-			type:"post",
-			url:"<?=base_url()?>index.php/kitap/edit_book/"+a,
-			dataType:"json",
-			success:function(data){
-				$("#book_code").val(data.book_code);
-				$("#book_title").val(data.book_title);
-				$("#year").val(data.year);
-				$("#price").val(data.price);
-				$("#category").val(data.category_code);
-				$("#publisher").val(data.publisher);
-				$("#writer").val(data.writer);
-				$("#stock").val(data.stock);
+<script>
+function edit_book(id) {
+    $.ajax({
+        url: "<?php echo base_url('kitap/get_book/'); ?>" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data) {
+            $('[name="book_code"]').val(data._id);
+            $('[name="book_title"]').val(data.book_title);
+            $('[name="year"]').val(data.year);
+            $('[name="price"]').val(data.price);
+            $('[name="category"]').val(data.category_code);
+            $('[name="publisher"]').val(data.publisher);
+            $('[name="writer"]').val(data.writer);
+            $('[name="stock"]').val(data.stock);
+            $('#modal_form').modal('show');
+            $('.modal-title').text('Kitap Düzenle');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Kitap bilgileri alınamadı');
+        }
+    });
+}
 
-			}
-		});
-	}
+function delete_book(id) {
+    if (confirm('Bu kitabı silmek istediğinizden emin misiniz?')) {
+        window.location.href = "<?php echo base_url('kitap/delete/'); ?>" + id;
+    }
+}
 </script>

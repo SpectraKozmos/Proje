@@ -49,8 +49,8 @@
 							<td>#CA<?=$kat->category_code?></td>
 							<td><?=$kat->category_name?></td>
 							<td class="text-center">
-								<a href="#edit" onclick="edit('<?=$kat->category_code?>')" class="btn btn-primary btn-sm" data-toggle="modal">Düzenle</a>
-								<a href="<?=base_url('index.php/kategori/delete_category/'.$kat->category_code)?>" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')" class="btn btn-danger btn-sm">Sil</a>
+								<a href="#edit" onclick="edit('<?=$kat->_id?>')" class="btn btn-primary btn-sm" data-toggle="modal">Düzenle</a>
+								<a href="<?=base_url('index.php/kategori/delete_category/'.$kat->_id)?>" onclick="return confirm('Bu kategoriyi silmek istediğinizden emin misiniz?')" class="btn btn-danger btn-sm">Sil</a>
 							</td>
 						</tr>
 					<?php endforeach ?>
@@ -102,17 +102,17 @@
 			</div>
 			<form action="<?=base_url('index.php/kategori/update')?>" method="post">
 				<div class="modal-body">
-					<input type="hidden" name="category_code_lama" id="category_code_lama">
+					<input type="hidden" name="category_code_lama" id="edit_id">
 					<div class="form-group row">
 						<div class="col-sm-3 offset-1"><label>Kategori Kodu</label></div>
 						<div class="col-sm-7">
-							<input type="number" name="category_code" id="category_code" required class="form-control">
+							<input type="number" name="category_code" id="edit_category_code" required class="form-control">
 						</div>
 					</div>
 					<div class="form-group row">
 						<div class="col-sm-3 offset-1"><label>Kategori Adı</label></div>
 						<div class="col-sm-7">
-							<input type="text" name="category_name" id="category_name" required class="form-control">
+							<input type="text" name="category_name" id="edit_category_name" required class="form-control">
 						</div>
 					</div>
 				</div>
@@ -131,15 +131,18 @@
 		$('#example').DataTable();
 	}
 	);
-	function edit(a) {
+	function edit(id) {
 		$.ajax({
-			type:"post",
-			url:"<?=base_url()?>index.php/kategori/edit_category/"+a,
-			dataType:"json",
-			success:function(data){
-				$("#category_code").val(data.category_code);
-				$("#category_name").val(data.category_name);
-				$("#category_code_lama").val(data.category_code);
+			url: '<?=base_url('index.php/kategori/edit_category/')?>'+id,
+			type: 'GET',
+			dataType: 'json',
+			success: function(data) {
+				$('#edit_id').val(data._id);
+				$('#edit_category_code').val(data.category_code);
+				$('#edit_category_name').val(data.category_name);
+			},
+			error: function(xhr, status, error) {
+				alert('Kategori bilgileri alınamadı: ' + error);
 			}
 		});
 	}
